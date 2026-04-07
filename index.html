@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hakeem Saleem — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Outfit:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131f;
+    --accent: #7c6dfa;
+    --accent-light: #a89cf7;
+    --text: #e8e6f0;
+    --text-muted: rgba(232,230,240,0.5);
+    --text-dim: rgba(232,230,240,0.25);
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(124,109,250,0.4);
+    --green: #5dca9e;
+    --amber: #f0a830;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(120,100,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,100,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 32px; max-width: 1100px; margin: 0 auto;
+  }
+  .logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #fff; text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; color: var(--text-muted); text-decoration: none;
+    font-family: 'DM Mono', monospace; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero { padding: 60px 0 52px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(124,109,250,0.12); border: 0.5px solid rgba(124,109,250,0.3);
+    border-radius: 100px; padding: 6px 14px; margin-bottom: 22px;
+    font-size: 12px; font-family: 'DM Mono', monospace; color: var(--accent-light);
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 52px; font-weight: 300; line-height: 1.05;
+    margin-bottom: 16px; letter-spacing: -1px;
+  }
+  h1 strong { font-weight: 700; }
+  h1 .accent { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 15px; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 28px; max-width: 360px;
+  }
+
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .btn-primary {
+    background: var(--accent); color: #fff; border: none;
+    padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: 'Syne', sans-serif; text-decoration: none;
+    transition: opacity 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: 'Syne', sans-serif; text-decoration: none;
+    transition: border-color 0.2s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.4); }
+
+  .social-row { display: flex; align-items: center; gap: 10px; }
+  .social-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border-radius: 8px;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    background: var(--surface);
+    font-size: 12px; font-family: 'DM Mono', monospace;
+    color: rgba(232,230,240,0.55); text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-pill:hover { border-color: var(--border-hover); color: var(--accent-light); }
+  .social-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.1); }
+
+  /* PHOTO */
+  .photo-wrap { display: flex; align-items: center; justify-content: center; }
+  .photo-card {
+    width: 200px; border-radius: 16px; overflow: hidden;
+    border: 0.5px solid rgba(124,109,250,0.3);
+  }
+  .photo-card img {
+    width: 100%; display: block;
+    filter: grayscale(100%) contrast(1.05) brightness(0.88);
+  }
+
+  /* TERMINAL */
+  .terminal {
+    background: var(--surface); border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 20px;
+  }
+  .terminal-bar { display: flex; gap: 6px; margin-bottom: 16px; }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-line { font-family: 'DM Mono', monospace; font-size: 12px; line-height: 2.1; color: rgba(232,230,240,0.6); }
+  .t-green { color: #5dca9e; }
+  .t-purple { color: #a89cf7; }
+  .t-amber { color: #f0a830; }
+  .t-muted { color: rgba(232,230,240,0.25); }
+
+  /* SECTIONS */
+  section { padding: 0 0 56px; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title { font-size: 28px; font-weight: 800; margin-bottom: 32px; letter-spacing: -0.5px; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .skill-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 18px;
+    transition: border-color 0.2s;
+  }
+  .skill-card:hover { border-color: var(--border-hover); }
+  .skill-num { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); margin-bottom: 8px; }
+  .skill-name { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag {
+    font-size: 11px; font-family: 'DM Mono', monospace;
+    background: rgba(124,109,250,0.1); color: var(--accent-light);
+    border: 0.5px solid rgba(124,109,250,0.2);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* EDUCATION */
+  .edu-timeline { display: flex; flex-direction: column; position: relative; }
+  .edu-timeline::before {
+    content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+    width: 0.5px; background: rgba(124,109,250,0.2);
+  }
+  .edu-item { display: grid; grid-template-columns: 16px 1fr; gap: 20px; padding-bottom: 28px; }
+  .edu-item:last-child { padding-bottom: 0; }
+  .edu-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 6px; }
+  .edu-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid var(--accent); background: var(--bg);
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .edu-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 20px;
+  }
+  .edu-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 12px; }
+  .edu-degree { font-size: 15px; font-weight: 700; }
+  .edu-date {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent);
+    background: rgba(124,109,250,0.1); border: 0.5px solid rgba(124,109,250,0.2);
+    padding: 3px 10px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+  }
+  .edu-school { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+  .edu-detail { font-size: 12px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .project-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 20px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+  .project-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .project-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); margin-bottom: 12px; }
+  .project-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; }
+  .project-links { display: flex; gap: 8px; border-top: 0.5px solid rgba(255,255,255,0.07); padding-top: 14px; margin-top: auto; }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-family: 'DM Mono', monospace;
+    padding: 5px 12px; border-radius: 6px; text-decoration: none;
+    border: 0.5px solid rgba(255,255,255,0.12); color: rgba(232,230,240,0.5);
+    background: transparent; transition: border-color 0.2s, color 0.2s;
+  }
+  .link-btn.gh { border-color: rgba(124,109,250,0.3); color: var(--accent-light); }
+  .link-btn.gh:hover { border-color: var(--accent); }
+  .link-btn.live { border-color: rgba(93,202,158,0.3); color: var(--green); }
+  .link-btn.live:hover { border-color: var(--green); }
+
+  /* ABOUT */
+  .about-strip {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 28px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+  .about-text { font-size: 14px; color: rgba(232,230,240,0.6); line-height: 1.8; }
+  .stats { display: flex; gap: 28px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text-dim); margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 24px 0;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  }
+  .footer-contact { font-size: 13px; color: rgba(232,230,240,0.4); font-family: 'DM Mono', monospace; }
+  .footer-contact a { color: var(--accent); text-decoration: none; }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-social {
+    width: 34px; height: 34px; border-radius: 8px;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none; transition: border-color 0.2s;
+  }
+  .footer-social:hover { border-color: rgba(124,109,250,0.4); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .photo-wrap { order: -1; }
+    .photo-card { width: 160px; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .about-strip { grid-template-columns: 1fr; }
+    h1 { font-size: 40px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">HS<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-grid">
+
+      <!-- LEFT: Text -->
+      <div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          available for internships
+        </div>
+        <h1><strong>Hakeem</strong><br><span class="accent">Saleem</span></h1>
+        <p class="hero-sub">CS undergraduate building full-stack apps &amp; exploring cloud infrastructure. Based in Colombo, Sri Lanka.</p>
+        <div class="btn-row">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#" class="btn-ghost" onclick="alert('Add your CV download link here!')">Download CV</a>
+        </div>
+        <div class="social-row">
+          <a class="social-pill" href="https://github.com/imhakeem18" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+          <div class="social-divider"></div>
+          <a class="social-pill" href="https://www.linkedin.com/in/hakeem-saleem-522b4b387/" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- CENTRE: Photo -->
+      <div class="photo-wrap">
+        <div class="photo-card">
+            <img src="Hakeem image.jpeg" alt="image">
+        </div>
+      </div>
+
+      <!-- RIGHT: Terminal -->
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="t-dot" style="background:#ff5f57"></div>
+          <div class="t-dot" style="background:#febc2e"></div>
+          <div class="t-dot" style="background:#28c840"></div>
+        </div>
+        <div class="t-line"><span class="t-muted">~</span> <span class="t-green">whoami</span></div>
+        <div class="t-line"><span class="t-purple">hakeem_saleem</span></div>
+        <div class="t-line"><span class="t-muted">~</span> <span class="t-green">cat</span> skills.json</div>
+        <div class="t-line">{</div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-amber">"lang"</span>: <span class="t-purple">["JS","Python","C#"]</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-amber">"stack"</span>: <span class="t-purple">["React","Node","AWS"]</span></div>
+        <div class="t-line">&nbsp;&nbsp;<span class="t-amber">"seeking"</span>: <span class="t-green">"internship"</span></div>
+        <div class="t-line">}</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" style="padding-bottom:56px">
+    <div class="about-strip">
+      <div>
+        <div class="section-label">// about</div>
+        <p class="about-text">Year 3 BSc Computer Science student at University of Staffordshire (via APIIT, Sri Lanka). Passionate about building scalable full-stack systems and diving deeper into cloud infrastructure and DevOps. Actively seeking software engineering internships.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-num">3</div><div class="stat-label">projects</div></div>
+        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">languages</div></div>
+        <div class="stat"><div class="stat-num">2027</div><div class="stat-label">grad year</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">// expertise</div>
+    <div class="section-title">Skills &amp; Stack</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-num">01</div>
+        <div class="skill-name">Languages</div>
+        <div class="tags">
+          <span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">C#</span><span class="tag">PHP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">02</div>
+        <div class="skill-name">Frontend</div>
+        <div class="tags">
+          <span class="tag">React.js</span><span class="tag">Next.js</span><span class="tag">Angular</span><span class="tag">Tailwind</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">03</div>
+        <div class="skill-name">Backend</div>
+        <div class="tags">
+          <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MySQL</span><span class="tag">JWT Auth</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">04</div>
+        <div class="skill-name">Mobile</div>
+        <div class="tags">
+          <span class="tag">React Native</span><span class="tag">Flutter</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">05</div>
+        <div class="skill-name">Cloud &amp; Tools</div>
+        <div class="tags">
+          <span class="tag">AWS</span><span class="tag">Cloud Basics</span><span class="tag">Git</span><span class="tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">// education</div>
+    <div class="section-title">Academic Background</div>
+    <div class="edu-timeline">
+      <div class="edu-item">
+        <div class="edu-dot-col"><div class="edu-dot"></div></div>
+        <div class="edu-card">
+          <div class="edu-header">
+            <div class="edu-degree">BSc (Hons) Computer Science</div>
+            <div class="edu-date">2024 — 2027</div>
+          </div>
+          <div class="edu-school">University of Staffordshire · United Kingdom</div>
+          <div class="edu-detail">Delivered via APIIT, Sri Lanka &nbsp;·&nbsp; Year 3 &nbsp;·&nbsp; Expected graduation 2027</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">// work</div>
+    <div class="section-title">Projects</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-accent" style="background:var(--accent)"></div>
+        <div class="project-num">001</div>
+        <div class="project-title">SmartSpend</div>
+        <div class="project-desc">Personal finance tracker — income, expenses &amp; goal management with categorized spending insights.</div>
+        <div class="project-stack"><span class="tag">React Native</span><span class="tag">Laravel</span><span class="tag">API</span></div>
+        <div class="project-links">
+          <a class="link-btn gh" href="https://github.com/imhakeem18/smartspend-laravel" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-accent" style="background:var(--green)"></div>
+        <div class="project-num">002</div>
+        <div class="project-title">Hospital Website</div>
+        <div class="project-desc">Responsive hospital site with dynamic medicine listings, appointment flow &amp; doctor info.</div>
+        <div class="project-stack"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+        <div class="project-links">
+          <a class="link-btn gh" href="https://github.com/imhakeem18/Hospital-Website" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-accent" style="background:var(--amber)"></div>
+        <div class="project-num">003</div>
+        <div class="project-title">E-Commerce Platform</div>
+        <div class="project-desc">Full-stack store with product catalog, cart, order management &amp; JWT admin authentication.</div>
+        <div class="project-stack"><span class="tag">Node.js</span><span class="tag">MySQL</span><span class="tag">Tailwind</span></div>
+        <div class="project-links">
+          <a class="link-btn gh" href="https://github.com/imhakeem18/Balloon-website" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-contact">
+      076 831 3133 &nbsp;·&nbsp; <a href="mailto:hakeem.asa11@gmail.com">hakeem.asa11@gmail.com</a>
+    </div>
+    <div class="footer-socials">
+      <a class="footer-social" href="https://github.com/imhakeem18" target="_blank" rel="noopener" title="GitHub">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(232,230,240,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a class="footer-social" href="https://www.linkedin.com/in/hakeem-saleem-522b4b387/" target="_blank" rel="noopener" title="LinkedIn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(232,230,240,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
